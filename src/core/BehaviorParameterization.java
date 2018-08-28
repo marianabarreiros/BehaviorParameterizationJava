@@ -7,27 +7,24 @@ import interfaces.ApplePredicate;
 import java.util.Arrays;
 import java.util.List;
 import product.Apple;
-import selectionCriteria.SelectionCriteria;
+import filteringapples.FilteringApples;
 
 public class BehaviorParameterization {
 
     public static void main(String[] args) {
-        Apple apple1 = new Apple("red", 160);
-        Apple apple2 = new Apple("green", 110);
-        Apple apple3 = new Apple("green", 200);
-        Apple apple4 = new Apple("green", 50);
-        Apple apple5 = new Apple("red", 175);
-        Apple apple6 = new Apple("red", 183);
-        Apple apple7 = new Apple("red", 80);
+        List<Apple> inventory = Arrays.asList(new Apple("red", 160),
+                                              new Apple("green", 110),
+                                              new Apple("green", 200),
+                                              new Apple("green", 50),
+                                              new Apple("red", 175),
+                                              new Apple("red", 183),
+                                              new Apple("red", 80));
         
-        ApplePredicate filterAppleByWeight = new FilterAppleByWeight();
-        ApplePredicate filterGreenApple = new FilterGreenApples();
-        ApplePredicate filterRedApple = new FilterRedApples();
+        FilteringApples filteringApples = new FilteringApples();
         
-        SelectionCriteria selectionCriteria = new SelectionCriteria();
-        
-        List<Apple> inventory = Arrays.asList(apple1, apple2, apple3, apple4, apple5, apple6, apple7);
-        System.out.println(selectionCriteria.filterApples(inventory, filterGreenApple));
+        System.out.println(filteringApples.filterApples(inventory, (Apple apple) -> "red".equals(apple.getColor())));
+        System.out.println(filteringApples.filterApples(inventory, new FilterRedApples()));
+        System.out.println(filteringApples.filterApples(inventory, new FilterAppleByWeight()));
     }
     
 }
